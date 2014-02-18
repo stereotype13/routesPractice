@@ -1,0 +1,72 @@
+<style type="text/css">
+  tr.even.row_selected td {
+	background-color: #B0BED9;
+}
+
+tr.odd.row_selected td {
+	background-color: #9FAFD1;
+}
+
+</style>
+<div class="col-sm-8 col-sm-offset-2">
+	<table id="mytable">
+	  <thead>
+		  <tr>
+			<th>User ID</th>
+			<th>First Name</th>
+			<th>Last Name</th>
+			<th>Email</th>
+		  </tr>
+	  </thead>
+	  <tbody>
+		  <% @users.each do |user| %>
+			  <tr>
+				<td class="user_id"><%= user.id %></td>
+				<td><%= user.first_name %></td>
+				<td><%= user.last_name %></td>
+				<td><%= user.email %></td>
+			  </tr>
+		  <% end %>
+	  </tbody>
+	</table>
+</div>
+
+<div id="dialog-form">
+	<p id="user_id">test</p>
+</div>
+
+<script type="text/javascript">
+  $( document ).ready(function() {
+  
+		
+	$('#mytable thead').click(function() {
+		$('.sorting_1').removeClass('sorting_1');
+	}); 
+	
+	$('#mytable tbody').click(function(event) {
+		
+		$(event.target.parentNode).siblings('.row_selected').removeClass('row_selected');
+		$(event.target.parentNode).children('.sorting_1').removeClass('sorting_1');
+		$(event.target.parentNode).addClass('row_selected');
+	});
+	
+	$('#mytable tbody').dblclick(function(event) {
+		
+		$(event.target.parentNode).siblings('.row_selected').removeClass('row_selected');
+		$(event.target.parentNode).children('.sorting_1').removeClass('sorting_1');
+		$(event.target.parentNode).addClass('row_selected');
+		
+		var user_id = $(event.target.parentNode).children('td.user_id')[0].innerHTML;
+		$('#dialog-form p#user_id')[0].innerHTML = user_id;
+		$('#dialog-form').dialog();
+	});
+	
+	var myTable = $('#mytable').dataTable({
+		"sPaginationType": "bootstrap",
+		"bJQueryUI": "true"
+	});
+    
+	$('.sorting_1').removeClass('sorting_1');
+  });
+  
+</script>
