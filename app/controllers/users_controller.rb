@@ -11,4 +11,9 @@ class UsersController < ApplicationController
   def index
 	@users = User.all
   end
+  
+  def ajax_get
+	@user = User.find(params[:id])
+	render :json => @user
+  end
 end
